@@ -4,12 +4,12 @@ import Section from './Section/Section';
 import Notification from './Notification/Notification';
 import Statistics from './Statistics/Statistics';
 
-function App() {
+const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const options = Object.keys({ good, neutral, bad });
+  const options = { good, neutral, bad };
 
   function onLeaveFeedback(feedback) {
     switch (feedback) {
@@ -28,20 +28,27 @@ function App() {
     }
   }
 
-  function totalFeedbackCount() {
-    return good + neutral + bad;
-  }
+  const totalFeedbackCount = () => {
+    return Object.values(options).reduce(
+      (acc, prevState) => acc + prevState,
+      0
+    );
+    // return good + neutral + bad;
+  };
 
-  function positiveFeedbackCount() {
+  const positiveFeedbackCount = () => {
     const total = totalFeedbackCount();
 
     return !total ? '0' : Math.round((good / total) * 10000) / 100;
-  }
+  };
 
   return (
     <>
       <Section text="Please leave feedback!">
-        <Feedback options={options} onLeaveFeedback={onLeaveFeedback} />
+        <Feedback
+          options={Object.keys(options)}
+          onLeaveFeedback={onLeaveFeedback}
+        />
       </Section>
       {good || neutral || bad ? (
         <Section text="Statistics">
@@ -58,6 +65,6 @@ function App() {
       )}
     </>
   );
-}
+};
 
 export default App;
