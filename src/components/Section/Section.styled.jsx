@@ -17,5 +17,4 @@ export const Container = styled.div`
 export const Dotted = styled.div`
   padding: 2.25em 0em;
   width: 100%;
-  height: 30vh;
 `;
