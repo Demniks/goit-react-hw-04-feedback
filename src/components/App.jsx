@@ -14,20 +14,19 @@ const App = () => {
   function onLeaveFeedback(feedback) {
     switch (feedback) {
       case 'good':
-        setGood(feedback => feedback + 1);
+        setGood(prevState => prevState + 1);
         break;
       case 'neutral':
-        setNeutral(feedback => feedback + 1);
+        setNeutral(prevState => prevState + 1);
         break;
       case 'bad':
-        setBad(feedback => feedback + 1);
+        setBad(prevState => prevState + 1);
         break;
 
       default:
         break;
     }
   }
-
   const totalFeedbackCount = () => {
     return Object.values(options).reduce(
       (acc, prevState) => acc + prevState,
