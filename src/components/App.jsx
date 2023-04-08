@@ -11,8 +11,8 @@ const App = () => {
 
   const options = { good, neutral, bad };
 
-  function onLeaveFeedback(feedback) {
-    switch (feedback) {
+  function onLeaveFeedback(options) {
+    switch (options) {
       case 'good':
         setGood(prevState => prevState + 1);
         break;
@@ -27,17 +27,17 @@ const App = () => {
         break;
     }
   }
+
   const totalFeedbackCount = () => {
     return Object.values(options).reduce(
       (acc, prevState) => acc + prevState,
       0
     );
-    // return good + neutral + bad;
   };
 
+  const total = totalFeedbackCount();
+  
   const positiveFeedbackCount = () => {
-    const total = totalFeedbackCount();
-
     return !total ? '0' : Math.round((good / total) * 10000) / 100;
   };
 
@@ -49,13 +49,13 @@ const App = () => {
           onLeaveFeedback={onLeaveFeedback}
         />
       </Section>
-      {good || neutral || bad ? (
+      {total ? (
         <Section text="Statistics">
           <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
-            total={totalFeedbackCount()}
+            total={total}
             positiveFeedback={positiveFeedbackCount()}
           />
         </Section>
